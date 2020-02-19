@@ -1,0 +1,1692 @@
+"""
+Instances of FeatureLabelSet that have been preconfigured because we use them frequently.
+"""
+
+from ml.data.feature import *
+import ml.data.feature_label_set
+import ml.data.ensemble_feature_label_set
+import ml.defaults as defaults
+
+
+example_set = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        LogReturns().bitstamp().one_min().lookback(1),
+        BidStrength().bitstamp().one_min().slippage(0),
+        AskStrength().bitstamp().one_min().slippage(0),
+        InterExchangeSpread(
+            Midpoint().bitstamp().one_min(),
+            Midpoint().itbit().one_min(),
+        ),
+    ],
+    labels=[
+        LogReturns().bitstamp().one_min().lookforward(1),
+    ],
+)
+
+simple_prices = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        LogReturns().bitstamp().hour().lookback(1),
+        LogReturns().bitstamp().hour().lookback(2),
+    ],
+    labels=[
+        LogReturns().bitstamp().hour().lookforward(1),
+    ],
+)
+
+strength = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().bitstamp().hour().slippage(0),
+        BidStrength().bitstamp().hour().slippage(1),
+        BidStrength().bitstamp().hour().slippage(2),
+        BidStrength().bitstamp().hour().slippage(4),
+        BidStrength().bitstamp().hour().slippage(6),
+        BidStrength().bitstamp().hour().slippage(8),
+        BidStrength().bitstamp().hour().slippage(10),
+        AskStrength().bitstamp().hour().slippage(0),
+        AskStrength().bitstamp().hour().slippage(1),
+        AskStrength().bitstamp().hour().slippage(2),
+        AskStrength().bitstamp().hour().slippage(4),
+        AskStrength().bitstamp().hour().slippage(6),
+        AskStrength().bitstamp().hour().slippage(8),
+        AskStrength().bitstamp().hour().slippage(10),
+    ],
+    labels=[
+        LogReturns().bitstamp().hour().lookforward(1),
+    ],
+)
+
+strength_usd = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().bitstamp().hour().slippage(1),
+        BidStrengthUSD().bitstamp().hour().slippage(2),
+        BidStrengthUSD().bitstamp().hour().slippage(4),
+        BidStrengthUSD().bitstamp().hour().slippage(6),
+        BidStrengthUSD().bitstamp().hour().slippage(8),
+        BidStrengthUSD().bitstamp().hour().slippage(10),
+        AskStrengthUSD().bitstamp().hour().slippage(1),
+        AskStrengthUSD().bitstamp().hour().slippage(2),
+        AskStrengthUSD().bitstamp().hour().slippage(4),
+        AskStrengthUSD().bitstamp().hour().slippage(6),
+        AskStrengthUSD().bitstamp().hour().slippage(8),
+        AskStrengthUSD().bitstamp().hour().slippage(10),
+    ],
+    labels=[
+        LogReturns().bitstamp().hour().lookforward(1),
+    ],
+)
+
+hf_strength = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().bitstamp().ten_min().slippage(1),
+        BidStrength().bitstamp().ten_min().slippage(5),
+        BidStrength().bitstamp().ten_min().slippage(10),
+        AskStrength().bitstamp().ten_min().slippage(1),
+        AskStrength().bitstamp().ten_min().slippage(5),
+        AskStrength().bitstamp().ten_min().slippage(10),
+    ],
+    labels=[
+        LogReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+hf_strength_target_price_diff_bitstamp = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().bitstamp().ten_min().slippage(1),
+        BidStrength().bitstamp().ten_min().slippage(5),
+        BidStrength().bitstamp().ten_min().slippage(10),
+        AskStrength().bitstamp().ten_min().slippage(1),
+        AskStrength().bitstamp().ten_min().slippage(5),
+        AskStrength().bitstamp().ten_min().slippage(10),
+    ],
+    labels=[
+        MidpointDiff().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+hf_strength_target_price_diff_kraken = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().kraken().ten_min().slippage(1),
+        BidStrength().kraken().ten_min().slippage(5),
+        BidStrength().kraken().ten_min().slippage(10),
+        AskStrength().kraken().ten_min().slippage(1),
+        AskStrength().kraken().ten_min().slippage(5),
+        AskStrength().kraken().ten_min().slippage(10),
+    ],
+    labels=[
+        MidpointDiff().kraken().ten_min().lookforward(1),
+    ],
+)
+
+hf_strength_target_price_diff_coinbase = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().coinbase().ten_min().slippage(1),
+        BidStrength().coinbase().ten_min().slippage(5),
+        BidStrength().coinbase().ten_min().slippage(10),
+        AskStrength().coinbase().ten_min().slippage(1),
+        AskStrength().coinbase().ten_min().slippage(5),
+        AskStrength().coinbase().ten_min().slippage(10),
+    ],
+    labels=[
+        MidpointDiff().coinbase().ten_min().lookforward(1),
+    ],
+)
+
+hf_strength_target_price_diff_itbit = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().itbit().ten_min().slippage(1),
+        BidStrength().itbit().ten_min().slippage(5),
+        BidStrength().itbit().ten_min().slippage(10),
+        AskStrength().itbit().ten_min().slippage(1),
+        AskStrength().itbit().ten_min().slippage(5),
+        AskStrength().itbit().ten_min().slippage(10),
+    ],
+    labels=[
+        MidpointDiff().itbit().ten_min().lookforward(1),
+    ],
+)
+
+hf_strength_target_price_diff_gemini = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().gemini().ten_min().slippage(1),
+        BidStrength().gemini().ten_min().slippage(5),
+        BidStrength().gemini().ten_min().slippage(10),
+        AskStrength().gemini().ten_min().slippage(1),
+        AskStrength().gemini().ten_min().slippage(5),
+        AskStrength().gemini().ten_min().slippage(10),
+    ],
+    labels=[
+        MidpointDiff().gemini().ten_min().lookforward(1),
+    ],
+)
+
+hf_strength_many_target_price_diff_bitstamp = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().bitstamp().ten_min().slippage(0.0),
+        BidStrength().bitstamp().ten_min().slippage(0.5),
+        BidStrength().bitstamp().ten_min().slippage(1.0),
+        BidStrength().bitstamp().ten_min().slippage(1.5),
+        BidStrength().bitstamp().ten_min().slippage(2.0),
+        BidStrength().bitstamp().ten_min().slippage(2.5),
+        BidStrength().bitstamp().ten_min().slippage(3.0),
+        BidStrength().bitstamp().ten_min().slippage(3.5),
+        BidStrength().bitstamp().ten_min().slippage(4.0),
+        BidStrength().bitstamp().ten_min().slippage(4.5),
+        AskStrength().bitstamp().ten_min().slippage(0.0),
+        AskStrength().bitstamp().ten_min().slippage(0.5),
+        AskStrength().bitstamp().ten_min().slippage(1.0),
+        AskStrength().bitstamp().ten_min().slippage(1.5),
+        AskStrength().bitstamp().ten_min().slippage(2.0),
+        AskStrength().bitstamp().ten_min().slippage(2.5),
+        AskStrength().bitstamp().ten_min().slippage(3.0),
+        AskStrength().bitstamp().ten_min().slippage(3.5),
+        AskStrength().bitstamp().ten_min().slippage(4.0),
+        AskStrength().bitstamp().ten_min().slippage(4.5),
+    ],
+    labels=[
+        MidpointDiff().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+hf_strength_many_target_simple_return_bitstamp = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().bitstamp().ten_min().slippage(0.0),
+        BidStrength().bitstamp().ten_min().slippage(0.5),
+        BidStrength().bitstamp().ten_min().slippage(1.0),
+        BidStrength().bitstamp().ten_min().slippage(1.5),
+        BidStrength().bitstamp().ten_min().slippage(2.0),
+        BidStrength().bitstamp().ten_min().slippage(2.5),
+        BidStrength().bitstamp().ten_min().slippage(3.0),
+        BidStrength().bitstamp().ten_min().slippage(3.5),
+        BidStrength().bitstamp().ten_min().slippage(4.0),
+        BidStrength().bitstamp().ten_min().slippage(4.5),
+        AskStrength().bitstamp().ten_min().slippage(0.0),
+        AskStrength().bitstamp().ten_min().slippage(0.5),
+        AskStrength().bitstamp().ten_min().slippage(1.0),
+        AskStrength().bitstamp().ten_min().slippage(1.5),
+        AskStrength().bitstamp().ten_min().slippage(2.0),
+        AskStrength().bitstamp().ten_min().slippage(2.5),
+        AskStrength().bitstamp().ten_min().slippage(3.0),
+        AskStrength().bitstamp().ten_min().slippage(3.5),
+        AskStrength().bitstamp().ten_min().slippage(4.0),
+        AskStrength().bitstamp().ten_min().slippage(4.5),
+    ],
+    labels=[
+        SimpleReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+hf_strength_many_target_price_diff_kraken = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().kraken().ten_min().slippage(0.0),
+        BidStrength().kraken().ten_min().slippage(0.5),
+        BidStrength().kraken().ten_min().slippage(1.0),
+        BidStrength().kraken().ten_min().slippage(1.5),
+        BidStrength().kraken().ten_min().slippage(2.0),
+        BidStrength().kraken().ten_min().slippage(2.5),
+        BidStrength().kraken().ten_min().slippage(3.0),
+        BidStrength().kraken().ten_min().slippage(3.5),
+        BidStrength().kraken().ten_min().slippage(4.0),
+        BidStrength().kraken().ten_min().slippage(4.5),
+        AskStrength().kraken().ten_min().slippage(0.0),
+        AskStrength().kraken().ten_min().slippage(0.5),
+        AskStrength().kraken().ten_min().slippage(1.0),
+        AskStrength().kraken().ten_min().slippage(1.5),
+        AskStrength().kraken().ten_min().slippage(2.0),
+        AskStrength().kraken().ten_min().slippage(2.5),
+        AskStrength().kraken().ten_min().slippage(3.0),
+        AskStrength().kraken().ten_min().slippage(3.5),
+        AskStrength().kraken().ten_min().slippage(4.0),
+        AskStrength().kraken().ten_min().slippage(4.5),
+    ],
+    labels=[
+        MidpointDiff().kraken().ten_min().lookforward(1),
+    ],
+)
+
+hf_strength_many_target_price_diff_coinbase = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().coinbase().ten_min().slippage(0.0),
+        BidStrength().coinbase().ten_min().slippage(0.5),
+        BidStrength().coinbase().ten_min().slippage(1.0),
+        BidStrength().coinbase().ten_min().slippage(1.5),
+        BidStrength().coinbase().ten_min().slippage(2.0),
+        BidStrength().coinbase().ten_min().slippage(2.5),
+        BidStrength().coinbase().ten_min().slippage(3.0),
+        BidStrength().coinbase().ten_min().slippage(3.5),
+        BidStrength().coinbase().ten_min().slippage(4.0),
+        BidStrength().coinbase().ten_min().slippage(4.5),
+        AskStrength().coinbase().ten_min().slippage(0.0),
+        AskStrength().coinbase().ten_min().slippage(0.5),
+        AskStrength().coinbase().ten_min().slippage(1.0),
+        AskStrength().coinbase().ten_min().slippage(1.5),
+        AskStrength().coinbase().ten_min().slippage(2.0),
+        AskStrength().coinbase().ten_min().slippage(2.5),
+        AskStrength().coinbase().ten_min().slippage(3.0),
+        AskStrength().coinbase().ten_min().slippage(3.5),
+        AskStrength().coinbase().ten_min().slippage(4.0),
+        AskStrength().coinbase().ten_min().slippage(4.5),
+    ],
+    labels=[
+        MidpointDiff().coinbase().ten_min().lookforward(1),
+    ],
+)
+
+hf_strength_many_target_price_diff_itbit = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().itbit().ten_min().slippage(0.0),
+        BidStrength().itbit().ten_min().slippage(0.5),
+        BidStrength().itbit().ten_min().slippage(1.0),
+        BidStrength().itbit().ten_min().slippage(1.5),
+        BidStrength().itbit().ten_min().slippage(2.0),
+        BidStrength().itbit().ten_min().slippage(2.5),
+        BidStrength().itbit().ten_min().slippage(3.0),
+        BidStrength().itbit().ten_min().slippage(3.5),
+        BidStrength().itbit().ten_min().slippage(4.0),
+        BidStrength().itbit().ten_min().slippage(4.5),
+        AskStrength().itbit().ten_min().slippage(0.0),
+        AskStrength().itbit().ten_min().slippage(0.5),
+        AskStrength().itbit().ten_min().slippage(1.0),
+        AskStrength().itbit().ten_min().slippage(1.5),
+        AskStrength().itbit().ten_min().slippage(2.0),
+        AskStrength().itbit().ten_min().slippage(2.5),
+        AskStrength().itbit().ten_min().slippage(3.0),
+        AskStrength().itbit().ten_min().slippage(3.5),
+        AskStrength().itbit().ten_min().slippage(4.0),
+        AskStrength().itbit().ten_min().slippage(4.5),
+    ],
+    labels=[
+        MidpointDiff().itbit().ten_min().lookforward(1),
+    ],
+)
+
+hf_strength_many_target_price_diff_gemini = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().gemini().ten_min().slippage(0.0),
+        BidStrength().gemini().ten_min().slippage(0.5),
+        BidStrength().gemini().ten_min().slippage(1.0),
+        BidStrength().gemini().ten_min().slippage(1.5),
+        BidStrength().gemini().ten_min().slippage(2.0),
+        BidStrength().gemini().ten_min().slippage(2.5),
+        BidStrength().gemini().ten_min().slippage(3.0),
+        BidStrength().gemini().ten_min().slippage(3.5),
+        BidStrength().gemini().ten_min().slippage(4.0),
+        BidStrength().gemini().ten_min().slippage(4.5),
+        AskStrength().gemini().ten_min().slippage(0.0),
+        AskStrength().gemini().ten_min().slippage(0.5),
+        AskStrength().gemini().ten_min().slippage(1.0),
+        AskStrength().gemini().ten_min().slippage(1.5),
+        AskStrength().gemini().ten_min().slippage(2.0),
+        AskStrength().gemini().ten_min().slippage(2.5),
+        AskStrength().gemini().ten_min().slippage(3.0),
+        AskStrength().gemini().ten_min().slippage(3.5),
+        AskStrength().gemini().ten_min().slippage(4.0),
+        AskStrength().gemini().ten_min().slippage(4.5),
+    ],
+    labels=[
+        MidpointDiff().gemini().ten_min().lookforward(1),
+    ],
+)
+
+uhf_strength_target_price_diff_bitstamp = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().bitstamp().five_min().slippage(1),
+        BidStrength().bitstamp().five_min().slippage(5),
+        BidStrength().bitstamp().five_min().slippage(10),
+        AskStrength().bitstamp().five_min().slippage(1),
+        AskStrength().bitstamp().five_min().slippage(5),
+        AskStrength().bitstamp().five_min().slippage(10),
+    ],
+    labels=[
+        MidpointDiff().bitstamp().five_min().lookforward(1),
+    ],
+)
+
+uhf_strength_target_price_diff_kraken = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().kraken().five_min().slippage(1),
+        BidStrength().kraken().five_min().slippage(5),
+        BidStrength().kraken().five_min().slippage(10),
+        AskStrength().kraken().five_min().slippage(1),
+        AskStrength().kraken().five_min().slippage(5),
+        AskStrength().kraken().five_min().slippage(10),
+    ],
+    labels=[
+        MidpointDiff().kraken().five_min().lookforward(1),
+    ],
+)
+
+uhf_strength_target_price_diff_coinbase = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().coinbase().five_min().slippage(1),
+        BidStrength().coinbase().five_min().slippage(5),
+        BidStrength().coinbase().five_min().slippage(10),
+        AskStrength().coinbase().five_min().slippage(1),
+        AskStrength().coinbase().five_min().slippage(5),
+        AskStrength().coinbase().five_min().slippage(10),
+    ],
+    labels=[
+        MidpointDiff().coinbase().five_min().lookforward(1),
+    ],
+)
+
+uhf_strength_target_price_diff_itbit = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().itbit().five_min().slippage(1),
+        BidStrength().itbit().five_min().slippage(5),
+        BidStrength().itbit().five_min().slippage(10),
+        AskStrength().itbit().five_min().slippage(1),
+        AskStrength().itbit().five_min().slippage(5),
+        AskStrength().itbit().five_min().slippage(10),
+    ],
+    labels=[
+        MidpointDiff().itbit().five_min().lookforward(1),
+    ],
+)
+
+uhf_strength_target_price_diff_gemini = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().gemini().five_min().slippage(1),
+        BidStrength().gemini().five_min().slippage(5),
+        BidStrength().gemini().five_min().slippage(10),
+        AskStrength().gemini().five_min().slippage(1),
+        AskStrength().gemini().five_min().slippage(5),
+        AskStrength().gemini().five_min().slippage(10),
+    ],
+    labels=[
+        MidpointDiff().gemini().five_min().lookforward(1),
+    ],
+)
+
+uhf_strength_many_target_price_diff_bitstamp = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().bitstamp().five_min().slippage(0.0),
+        BidStrength().bitstamp().five_min().slippage(0.5),
+        BidStrength().bitstamp().five_min().slippage(1.0),
+        BidStrength().bitstamp().five_min().slippage(1.5),
+        BidStrength().bitstamp().five_min().slippage(2.0),
+        BidStrength().bitstamp().five_min().slippage(2.5),
+        BidStrength().bitstamp().five_min().slippage(3.0),
+        BidStrength().bitstamp().five_min().slippage(3.5),
+        BidStrength().bitstamp().five_min().slippage(4.0),
+        BidStrength().bitstamp().five_min().slippage(4.5),
+        AskStrength().bitstamp().five_min().slippage(0.0),
+        AskStrength().bitstamp().five_min().slippage(0.5),
+        AskStrength().bitstamp().five_min().slippage(1.0),
+        AskStrength().bitstamp().five_min().slippage(1.5),
+        AskStrength().bitstamp().five_min().slippage(2.0),
+        AskStrength().bitstamp().five_min().slippage(2.5),
+        AskStrength().bitstamp().five_min().slippage(3.0),
+        AskStrength().bitstamp().five_min().slippage(3.5),
+        AskStrength().bitstamp().five_min().slippage(4.0),
+        AskStrength().bitstamp().five_min().slippage(4.5),
+    ],
+    labels=[
+        MidpointDiff().bitstamp().five_min().lookforward(1),
+    ],
+)
+
+uhf_strength_many_target_price_diff_kraken = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().kraken().five_min().slippage(0.0),
+        BidStrength().kraken().five_min().slippage(0.5),
+        BidStrength().kraken().five_min().slippage(1.0),
+        BidStrength().kraken().five_min().slippage(1.5),
+        BidStrength().kraken().five_min().slippage(2.0),
+        BidStrength().kraken().five_min().slippage(2.5),
+        BidStrength().kraken().five_min().slippage(3.0),
+        BidStrength().kraken().five_min().slippage(3.5),
+        BidStrength().kraken().five_min().slippage(4.0),
+        BidStrength().kraken().five_min().slippage(4.5),
+        AskStrength().kraken().five_min().slippage(0.0),
+        AskStrength().kraken().five_min().slippage(0.5),
+        AskStrength().kraken().five_min().slippage(1.0),
+        AskStrength().kraken().five_min().slippage(1.5),
+        AskStrength().kraken().five_min().slippage(2.0),
+        AskStrength().kraken().five_min().slippage(2.5),
+        AskStrength().kraken().five_min().slippage(3.0),
+        AskStrength().kraken().five_min().slippage(3.5),
+        AskStrength().kraken().five_min().slippage(4.0),
+        AskStrength().kraken().five_min().slippage(4.5),
+    ],
+    labels=[
+        MidpointDiff().kraken().five_min().lookforward(1),
+    ],
+)
+
+uhf_strength_many_target_price_diff_coinbase = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().coinbase().five_min().slippage(0.0),
+        BidStrength().coinbase().five_min().slippage(0.5),
+        BidStrength().coinbase().five_min().slippage(1.0),
+        BidStrength().coinbase().five_min().slippage(1.5),
+        BidStrength().coinbase().five_min().slippage(2.0),
+        BidStrength().coinbase().five_min().slippage(2.5),
+        BidStrength().coinbase().five_min().slippage(3.0),
+        BidStrength().coinbase().five_min().slippage(3.5),
+        BidStrength().coinbase().five_min().slippage(4.0),
+        BidStrength().coinbase().five_min().slippage(4.5),
+        AskStrength().coinbase().five_min().slippage(0.0),
+        AskStrength().coinbase().five_min().slippage(0.5),
+        AskStrength().coinbase().five_min().slippage(1.0),
+        AskStrength().coinbase().five_min().slippage(1.5),
+        AskStrength().coinbase().five_min().slippage(2.0),
+        AskStrength().coinbase().five_min().slippage(2.5),
+        AskStrength().coinbase().five_min().slippage(3.0),
+        AskStrength().coinbase().five_min().slippage(3.5),
+        AskStrength().coinbase().five_min().slippage(4.0),
+        AskStrength().coinbase().five_min().slippage(4.5),
+    ],
+    labels=[
+        MidpointDiff().coinbase().five_min().lookforward(1),
+    ],
+)
+
+uhf_strength_many_target_price_diff_itbit = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().itbit().five_min().slippage(0.0),
+        BidStrength().itbit().five_min().slippage(0.5),
+        BidStrength().itbit().five_min().slippage(1.0),
+        BidStrength().itbit().five_min().slippage(1.5),
+        BidStrength().itbit().five_min().slippage(2.0),
+        BidStrength().itbit().five_min().slippage(2.5),
+        BidStrength().itbit().five_min().slippage(3.0),
+        BidStrength().itbit().five_min().slippage(3.5),
+        BidStrength().itbit().five_min().slippage(4.0),
+        BidStrength().itbit().five_min().slippage(4.5),
+        AskStrength().itbit().five_min().slippage(0.0),
+        AskStrength().itbit().five_min().slippage(0.5),
+        AskStrength().itbit().five_min().slippage(1.0),
+        AskStrength().itbit().five_min().slippage(1.5),
+        AskStrength().itbit().five_min().slippage(2.0),
+        AskStrength().itbit().five_min().slippage(2.5),
+        AskStrength().itbit().five_min().slippage(3.0),
+        AskStrength().itbit().five_min().slippage(3.5),
+        AskStrength().itbit().five_min().slippage(4.0),
+        AskStrength().itbit().five_min().slippage(4.5),
+    ],
+    labels=[
+        MidpointDiff().itbit().five_min().lookforward(1),
+    ],
+)
+
+uhf_strength_many_target_price_diff_gemini = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().gemini().five_min().slippage(0.0),
+        BidStrength().gemini().five_min().slippage(0.5),
+        BidStrength().gemini().five_min().slippage(1.0),
+        BidStrength().gemini().five_min().slippage(1.5),
+        BidStrength().gemini().five_min().slippage(2.0),
+        BidStrength().gemini().five_min().slippage(2.5),
+        BidStrength().gemini().five_min().slippage(3.0),
+        BidStrength().gemini().five_min().slippage(3.5),
+        BidStrength().gemini().five_min().slippage(4.0),
+        BidStrength().gemini().five_min().slippage(4.5),
+        AskStrength().gemini().five_min().slippage(0.0),
+        AskStrength().gemini().five_min().slippage(0.5),
+        AskStrength().gemini().five_min().slippage(1.0),
+        AskStrength().gemini().five_min().slippage(1.5),
+        AskStrength().gemini().five_min().slippage(2.0),
+        AskStrength().gemini().five_min().slippage(2.5),
+        AskStrength().gemini().five_min().slippage(3.0),
+        AskStrength().gemini().five_min().slippage(3.5),
+        AskStrength().gemini().five_min().slippage(4.0),
+        AskStrength().gemini().five_min().slippage(4.5),
+    ],
+    labels=[
+        MidpointDiff().gemini().five_min().lookforward(1),
+    ],
+)
+
+price_volume_strength = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        LogReturns().bitstamp().hour(),
+        Volume().bitstamp().hour(),
+        BidStrength().bitstamp().hour(),
+        AskStrength().bitstamp().hour(),
+    ],
+    labels=[
+        LogReturns().bitstamp().hour().lookforward(1),
+    ],
+)
+
+price_strength = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        LogReturns().bitstamp().hour().lookback(1),
+        LogReturns().bitstamp().hour().lookback(2),
+        LogReturns().bitstamp().hour().lookback(3),
+        LogReturns().bitstamp().hour().lookback(4),
+        LogReturns().bitstamp().hour().lookback(5),
+        LogReturns().bitstamp().hour().lookback(6),
+        BidStrength().bitstamp().hour(),
+        AskStrength().bitstamp().hour(),
+    ],
+    labels=[
+        LogReturns().bitstamp().hour().lookforward(1),
+    ],
+)
+
+bitstamp_itbit_spread = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        InterExchangeSpread(
+            Midpoint().bitstamp().hour(),
+            Midpoint().itbit().hour(),
+        ),
+    ],
+    labels=[
+        LogReturns().bitstamp().hour().lookforward(1),
+    ],
+)
+
+hf_small_prices = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        LogReturns().bitstamp().ten_min().lookback(1),
+        LogReturns().bitstamp().ten_min().lookback(3),
+        LogReturns().bitstamp().ten_min().lookback(5),
+    ],
+    labels=[
+        LogReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+hf_prices = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        LogReturns().bitstamp().ten_min().lookback(i) for i in range(1, 24)
+    ],
+    labels=[
+        LogReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+lots = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        LogReturns().bitstamp().hour().lookback(1),
+        LogReturns().bitstamp().hour().lookback(3),
+        LogReturns().bitstamp().hour().lookback(6),
+        LogReturns().bitstamp().hour().lookback(12),
+        LogReturns().bitstamp().hour().lookback(24),
+        LogReturns().bitstamp().hour().lookback(48),
+        LogReturns().bitstamp().hour().lookback(7*24),
+        BidStrength().bitstamp().hour().slippage(1),
+        BidStrength().bitstamp().hour().slippage(5),
+        BidStrength().bitstamp().hour().slippage(10),
+        AskStrength().bitstamp().hour().slippage(1),
+        AskStrength().bitstamp().hour().slippage(5),
+        AskStrength().bitstamp().hour().slippage(10),
+        InterExchangeSpread(
+            Midpoint().bitstamp().hour(),
+            Midpoint().itbit().hour(),
+        ),
+    ],
+    labels=[
+        LogReturns().bitstamp().hour().lookforward(1),
+    ],
+)
+
+hf_lots = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        LogReturns().bitstamp().ten_min().lookback(1),
+        LogReturns().bitstamp().ten_min().lookback(3),
+        LogReturns().bitstamp().ten_min().lookback(6*1),
+        LogReturns().bitstamp().ten_min().lookback(6*3),
+        LogReturns().bitstamp().ten_min().lookback(6*6),
+        LogReturns().bitstamp().ten_min().lookback(6*12),
+        LogReturns().bitstamp().ten_min().lookback(6*24),
+        LogReturns().bitstamp().ten_min().lookback(6*48),
+        LogReturns().bitstamp().ten_min().lookback(6*7*24),
+        BidStrength().bitstamp().ten_min().slippage(1),
+        BidStrength().bitstamp().ten_min().slippage(5),
+        BidStrength().bitstamp().ten_min().slippage(10),
+        AskStrength().bitstamp().ten_min().slippage(1),
+        AskStrength().bitstamp().ten_min().slippage(5),
+        AskStrength().bitstamp().ten_min().slippage(10),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().itbit().ten_min(),
+        ),
+    ],
+    labels=[
+        LogReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+uhf_lots = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        LogReturns().bitstamp().five_min().lookback(1),
+        LogReturns().bitstamp().five_min().lookback(3),
+        LogReturns().bitstamp().five_min().lookback(6*1),
+        LogReturns().bitstamp().five_min().lookback(6*3),
+        LogReturns().bitstamp().five_min().lookback(6*6),
+        LogReturns().bitstamp().five_min().lookback(6*12),
+        LogReturns().bitstamp().five_min().lookback(6*24),
+        LogReturns().bitstamp().five_min().lookback(6*48),
+        LogReturns().bitstamp().five_min().lookback(6*7*24),
+        BidStrength().bitstamp().five_min().slippage(1),
+        BidStrength().bitstamp().five_min().slippage(5),
+        BidStrength().bitstamp().five_min().slippage(10),
+        AskStrength().bitstamp().five_min().slippage(1),
+        AskStrength().bitstamp().five_min().slippage(5),
+        AskStrength().bitstamp().five_min().slippage(10),
+        InterExchangeSpread(
+            Midpoint().bitstamp().five_min(),
+            Midpoint().itbit().five_min(),
+        ),
+    ],
+    labels=[
+        LogReturns().bitstamp().five_min().lookforward(1),
+    ],
+)
+
+most_interexchange_spreads = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        InterExchangeSpread(
+            Midpoint().bitstamp().hour(),
+            Midpoint().itbit().hour(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().hour(),
+            Midpoint().bitfinex().hour(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().hour(),
+            Midpoint().coinbase().hour(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().hour(),
+            Midpoint().kraken().hour(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().hour(),
+            Midpoint().okcoin().hour(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().hour(),
+            Midpoint().gemini().hour(),
+        ),
+    ],
+    labels=[
+        LogReturns().bitstamp().hour().lookforward(1),
+    ],
+)
+
+hf_most_interexchange_spreads = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().itbit().ten_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().bitfinex().ten_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().coinbase().ten_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().kraken().ten_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().okcoin().ten_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().gemini().ten_min(),
+        ),
+    ],
+    labels=[
+        LogReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+uhf_most_interexchange_spreads = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        InterExchangeSpread(
+            Midpoint().bitstamp().five_min(),
+            Midpoint().itbit().five_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().five_min(),
+            Midpoint().bitfinex().five_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().five_min(),
+            Midpoint().coinbase().five_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().five_min(),
+            Midpoint().kraken().five_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().five_min(),
+            Midpoint().okcoin().five_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().five_min(),
+            Midpoint().gemini().five_min(),
+        ),
+    ],
+    labels=[
+        LogReturns().bitstamp().five_min().lookforward(1),
+    ],
+)
+
+all_strengths_hour = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().bitstamp().hour().slippage(1),
+        BidStrength().bitstamp().hour().slippage(5),
+        BidStrength().bitstamp().hour().slippage(10),
+        AskStrength().bitstamp().hour().slippage(1),
+        AskStrength().bitstamp().hour().slippage(5),
+        AskStrength().bitstamp().hour().slippage(10),
+        BidStrength().bitfinex().hour().slippage(1),
+        BidStrength().bitfinex().hour().slippage(5),
+        BidStrength().bitfinex().hour().slippage(10),
+        AskStrength().bitfinex().hour().slippage(1),
+        AskStrength().bitfinex().hour().slippage(5),
+        AskStrength().bitfinex().hour().slippage(10),
+        BidStrength().itbit().hour().slippage(1),
+        BidStrength().itbit().hour().slippage(5),
+        BidStrength().itbit().hour().slippage(10),
+        AskStrength().itbit().hour().slippage(1),
+        AskStrength().itbit().hour().slippage(5),
+        AskStrength().itbit().hour().slippage(10),
+        BidStrength().coinbase().hour().slippage(1),
+        BidStrength().coinbase().hour().slippage(5),
+        BidStrength().coinbase().hour().slippage(10),
+        AskStrength().coinbase().hour().slippage(1),
+        AskStrength().coinbase().hour().slippage(5),
+        AskStrength().coinbase().hour().slippage(10),
+        BidStrength().kraken().hour().slippage(1),
+        BidStrength().kraken().hour().slippage(5),
+        BidStrength().kraken().hour().slippage(10),
+        AskStrength().kraken().hour().slippage(1),
+        AskStrength().kraken().hour().slippage(5),
+        AskStrength().kraken().hour().slippage(10),
+        BidStrength().okcoin().hour().slippage(1),
+        BidStrength().okcoin().hour().slippage(5),
+        BidStrength().okcoin().hour().slippage(10),
+        AskStrength().okcoin().hour().slippage(1),
+        AskStrength().okcoin().hour().slippage(5),
+        AskStrength().okcoin().hour().slippage(10),
+        BidStrength().gemini().hour().slippage(1),
+        BidStrength().gemini().hour().slippage(5),
+        BidStrength().gemini().hour().slippage(10),
+        AskStrength().gemini().hour().slippage(1),
+        AskStrength().gemini().hour().slippage(5),
+        AskStrength().gemini().hour().slippage(10),
+    ],
+    labels=[
+        LogReturns().bitstamp().hour().lookforward(1),
+    ],
+)
+
+all_strengths_ten_min = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().bitstamp().ten_min().slippage(1),
+        BidStrength().bitstamp().ten_min().slippage(5),
+        BidStrength().bitstamp().ten_min().slippage(10),
+        AskStrength().bitstamp().ten_min().slippage(1),
+        AskStrength().bitstamp().ten_min().slippage(5),
+        AskStrength().bitstamp().ten_min().slippage(10),
+        BidStrength().bitfinex().ten_min().slippage(1),
+        BidStrength().bitfinex().ten_min().slippage(5),
+        BidStrength().bitfinex().ten_min().slippage(10),
+        AskStrength().bitfinex().ten_min().slippage(1),
+        AskStrength().bitfinex().ten_min().slippage(5),
+        AskStrength().bitfinex().ten_min().slippage(10),
+        BidStrength().itbit().ten_min().slippage(1),
+        BidStrength().itbit().ten_min().slippage(5),
+        BidStrength().itbit().ten_min().slippage(10),
+        AskStrength().itbit().ten_min().slippage(1),
+        AskStrength().itbit().ten_min().slippage(5),
+        AskStrength().itbit().ten_min().slippage(10),
+        BidStrength().coinbase().ten_min().slippage(1),
+        BidStrength().coinbase().ten_min().slippage(5),
+        BidStrength().coinbase().ten_min().slippage(10),
+        AskStrength().coinbase().ten_min().slippage(1),
+        AskStrength().coinbase().ten_min().slippage(5),
+        AskStrength().coinbase().ten_min().slippage(10),
+        BidStrength().kraken().ten_min().slippage(1),
+        BidStrength().kraken().ten_min().slippage(5),
+        BidStrength().kraken().ten_min().slippage(10),
+        AskStrength().kraken().ten_min().slippage(1),
+        AskStrength().kraken().ten_min().slippage(5),
+        AskStrength().kraken().ten_min().slippage(10),
+        BidStrength().okcoin().ten_min().slippage(1),
+        BidStrength().okcoin().ten_min().slippage(5),
+        BidStrength().okcoin().ten_min().slippage(10),
+        AskStrength().okcoin().ten_min().slippage(1),
+        AskStrength().okcoin().ten_min().slippage(5),
+        AskStrength().okcoin().ten_min().slippage(10),
+        BidStrength().gemini().ten_min().slippage(1),
+        BidStrength().gemini().ten_min().slippage(5),
+        BidStrength().gemini().ten_min().slippage(10),
+        AskStrength().gemini().ten_min().slippage(1),
+        AskStrength().gemini().ten_min().slippage(5),
+        AskStrength().gemini().ten_min().slippage(10),
+    ],
+    labels=[
+        LogReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+all_strengths_five_min = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().bitstamp().five_min().slippage(1),
+        BidStrength().bitstamp().five_min().slippage(5),
+        BidStrength().bitstamp().five_min().slippage(10),
+        AskStrength().bitstamp().five_min().slippage(1),
+        AskStrength().bitstamp().five_min().slippage(5),
+        AskStrength().bitstamp().five_min().slippage(10),
+        BidStrength().bitfinex().five_min().slippage(1),
+        BidStrength().bitfinex().five_min().slippage(5),
+        BidStrength().bitfinex().five_min().slippage(10),
+        AskStrength().bitfinex().five_min().slippage(1),
+        AskStrength().bitfinex().five_min().slippage(5),
+        AskStrength().bitfinex().five_min().slippage(10),
+        BidStrength().itbit().five_min().slippage(1),
+        BidStrength().itbit().five_min().slippage(5),
+        BidStrength().itbit().five_min().slippage(10),
+        AskStrength().itbit().five_min().slippage(1),
+        AskStrength().itbit().five_min().slippage(5),
+        AskStrength().itbit().five_min().slippage(10),
+        BidStrength().coinbase().five_min().slippage(1),
+        BidStrength().coinbase().five_min().slippage(5),
+        BidStrength().coinbase().five_min().slippage(10),
+        AskStrength().coinbase().five_min().slippage(1),
+        AskStrength().coinbase().five_min().slippage(5),
+        AskStrength().coinbase().five_min().slippage(10),
+        BidStrength().kraken().five_min().slippage(1),
+        BidStrength().kraken().five_min().slippage(5),
+        BidStrength().kraken().five_min().slippage(10),
+        AskStrength().kraken().five_min().slippage(1),
+        AskStrength().kraken().five_min().slippage(5),
+        AskStrength().kraken().five_min().slippage(10),
+        BidStrength().okcoin().five_min().slippage(1),
+        BidStrength().okcoin().five_min().slippage(5),
+        BidStrength().okcoin().five_min().slippage(10),
+        AskStrength().okcoin().five_min().slippage(1),
+        AskStrength().okcoin().five_min().slippage(5),
+        AskStrength().okcoin().five_min().slippage(10),
+        BidStrength().gemini().five_min().slippage(1),
+        BidStrength().gemini().five_min().slippage(5),
+        BidStrength().gemini().five_min().slippage(10),
+        AskStrength().gemini().five_min().slippage(1),
+        AskStrength().gemini().five_min().slippage(5),
+        AskStrength().gemini().five_min().slippage(10),
+    ],
+    labels=[
+        LogReturns().bitstamp().five_min().lookforward(1),
+    ],
+)
+
+hf_all_exchange_prices = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        Midpoint().bitstamp().ten_min(),
+        Midpoint().itbit().ten_min(),
+        Midpoint().bitfinex().ten_min(),
+        Midpoint().coinbase().ten_min(),
+        Midpoint().kraken().ten_min(),
+        Midpoint().okcoin().ten_min(),
+        Midpoint().gemini().ten_min(),
+    ],
+    labels=[
+        LogReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+multi_set = ml.data.ensemble_feature_label_set.EnsembleFeatureLabelSet(
+    featuresets=[price_strength, bitstamp_itbit_spread],
+)
+
+quotes = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        Bid().bitstamp().hour().slippage(0),
+        Bid().bitstamp().hour().slippage(1),
+        Bid().bitstamp().hour().slippage(20),
+        Ask().bitstamp().hour().slippage(0),
+        Ask().bitstamp().hour().slippage(1),
+        Ask().bitstamp().hour().slippage(20),
+    ],
+    labels=[
+        LogReturns().bitstamp().hour().lookforward(1),
+    ],
+)
+
+all_usd_exchange_prices = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        Midpoint().bitstamp().hour(),
+        Midpoint().itbit().hour(),
+        Midpoint().bitfinex().hour(),
+        Midpoint().coinbase().hour(),
+        Midpoint().okcoin().hour(),
+        Midpoint().gemini().hour(),
+    ],
+    labels=[
+        LogReturns().bitstamp().hour().lookforward(1),
+    ],
+)
+
+hf_very_lots = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        LogReturns().bitstamp().ten_min().lookback(1),
+        LogReturns().bitstamp().ten_min().lookback(3),
+        LogReturns().bitstamp().ten_min().lookback(6*1),
+        LogReturns().bitstamp().ten_min().lookback(6*3),
+        LogReturns().bitstamp().ten_min().lookback(6*6),
+        LogReturns().bitstamp().ten_min().lookback(6*12),
+        LogReturns().bitstamp().ten_min().lookback(6*24),
+        BidStrength().bitstamp().ten_min().slippage(1),
+        BidStrength().bitstamp().ten_min().slippage(5),
+        BidStrength().bitstamp().ten_min().slippage(10),
+        AskStrength().bitstamp().ten_min().slippage(1),
+        AskStrength().bitstamp().ten_min().slippage(5),
+        AskStrength().bitstamp().ten_min().slippage(10),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().itbit().ten_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().bitfinex().ten_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().coinbase().ten_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().kraken().ten_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().okcoin().ten_min(),
+        ),
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().gemini().ten_min(),
+        ),
+    ],
+    labels=[
+        LogReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+fls1 = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        LogReturns().bitstamp().ten_min().lookback(1),
+        LogReturns().bitstamp().ten_min().lookback(3),
+        LogReturns().bitstamp().ten_min().lookback(6*1),
+        LogReturns().bitstamp().ten_min().lookback(6*3),
+        LogReturns().bitstamp().ten_min().lookback(6*6),
+        LogReturns().bitstamp().ten_min().lookback(6*12),
+        LogReturns().bitstamp().ten_min().lookback(6*24),
+    ],
+    labels=[
+        LogReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+fls2 = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrength().bitstamp().ten_min().slippage(1),
+        BidStrength().bitstamp().ten_min().slippage(5),
+        BidStrength().bitstamp().ten_min().slippage(10),
+        AskStrength().bitstamp().ten_min().slippage(1),
+        AskStrength().bitstamp().ten_min().slippage(5),
+        AskStrength().bitstamp().ten_min().slippage(10),
+    ],
+    labels=[
+        LogReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+fls3 = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        InterExchangeSpread(
+            Midpoint().bitstamp().ten_min(),
+            Midpoint().itbit().ten_min(),
+        ),
+    ],
+    labels=[
+        LogReturns().bitstamp().ten_min().lookforward(1),
+    ],
+)
+
+fls_multi_set = ml.data.ensemble_feature_label_set.EnsembleFeatureLabelSet(
+    featuresets=[fls1, fls2, fls3],
+)
+
+bitstamp_arb_rev = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        SignedArbRevenue().bitstamp().bitfinex().one_min(),
+        SignedArbRevenue().bitstamp().coinbase().one_min(),
+        SignedArbRevenue().bitstamp().itbit().one_min(),
+    ],
+    labels=[
+        MidpointDiff().bitstamp().one_min().lookforward(1),
+    ],
+)
+
+bitfinex_arb_rev = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        SignedArbRevenue().bitfinex().bitstamp().one_min(),
+        SignedArbRevenue().bitfinex().coinbase().one_min(),
+        SignedArbRevenue().bitfinex().itbit().one_min(),
+    ],
+    labels=[
+        MidpointDiff().bitfinex().one_min().lookforward(1),
+    ],
+)
+
+coinbase_arb_rev = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        SignedArbRevenue().coinbase().bitstamp().one_min(),
+        SignedArbRevenue().coinbase().bitfinex().one_min(),
+        SignedArbRevenue().coinbase().itbit().one_min(),
+    ],
+    labels=[
+        MidpointDiff().coinbase().one_min().lookforward(1),
+    ],
+)
+
+itbit_arb_rev = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        SignedArbRevenue().itbit().bitstamp().one_min(),
+        SignedArbRevenue().itbit().bitfinex().one_min(),
+        SignedArbRevenue().itbit().coinbase().one_min(),
+    ],
+    labels=[
+        MidpointDiff().itbit().one_min().lookforward(1),
+    ],
+)
+
+gemini_arb_rev = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        SignedArbRevenue().gemini().bitstamp().one_min(),
+        SignedArbRevenue().gemini().bitfinex().one_min(),
+        SignedArbRevenue().gemini().coinbase().one_min(),
+        SignedArbRevenue().gemini().itbit().one_min(),
+        SignedArbRevenue().gemini().okcoin().one_min(),
+    ],
+    labels=[
+        MidpointDiff().gemini().one_min().lookforward(1),
+    ],
+)
+
+okcoin_arb_rev = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        SignedArbRevenue().okcoin().bitstamp().one_min(),
+        SignedArbRevenue().okcoin().bitfinex().one_min(),
+        SignedArbRevenue().okcoin().coinbase().one_min(),
+        SignedArbRevenue().okcoin().itbit().one_min(),
+        SignedArbRevenue().okcoin().gemini().one_min(),
+    ],
+    labels=[
+        MidpointDiff().okcoin().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_price_diff_bitstamp = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().bitstamp().one_min().slippage(0.0),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.1),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.2),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.3),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.4),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.5),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.6),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.7),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.8),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.9),
+        BidStrengthUSD().bitstamp().one_min().slippage(1.0),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.0),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.1),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.2),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.3),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.4),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.5),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.6),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.7),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.8),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.9),
+        AskStrengthUSD().bitstamp().one_min().slippage(1.0),
+    ],
+    labels=[
+        MidpointDiff().bitstamp().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_price_diff_bitfinex = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().bitfinex().one_min().slippage(0.0),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.1),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.2),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.3),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.4),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.5),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.6),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.7),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.8),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.9),
+        BidStrengthUSD().bitfinex().one_min().slippage(1.0),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.0),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.1),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.2),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.3),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.4),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.5),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.6),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.7),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.8),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.9),
+        AskStrengthUSD().bitfinex().one_min().slippage(1.0),
+    ],
+    labels=[
+        MidpointDiff().bitfinex().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_price_diff_coinbase = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().coinbase().one_min().slippage(0.0),
+        BidStrengthUSD().coinbase().one_min().slippage(0.1),
+        BidStrengthUSD().coinbase().one_min().slippage(0.2),
+        BidStrengthUSD().coinbase().one_min().slippage(0.3),
+        BidStrengthUSD().coinbase().one_min().slippage(0.4),
+        BidStrengthUSD().coinbase().one_min().slippage(0.5),
+        BidStrengthUSD().coinbase().one_min().slippage(0.6),
+        BidStrengthUSD().coinbase().one_min().slippage(0.7),
+        BidStrengthUSD().coinbase().one_min().slippage(0.8),
+        BidStrengthUSD().coinbase().one_min().slippage(0.9),
+        BidStrengthUSD().coinbase().one_min().slippage(1.0),
+        AskStrengthUSD().coinbase().one_min().slippage(0.0),
+        AskStrengthUSD().coinbase().one_min().slippage(0.1),
+        AskStrengthUSD().coinbase().one_min().slippage(0.2),
+        AskStrengthUSD().coinbase().one_min().slippage(0.3),
+        AskStrengthUSD().coinbase().one_min().slippage(0.4),
+        AskStrengthUSD().coinbase().one_min().slippage(0.5),
+        AskStrengthUSD().coinbase().one_min().slippage(0.6),
+        AskStrengthUSD().coinbase().one_min().slippage(0.7),
+        AskStrengthUSD().coinbase().one_min().slippage(0.8),
+        AskStrengthUSD().coinbase().one_min().slippage(0.9),
+        AskStrengthUSD().coinbase().one_min().slippage(1.0),
+    ],
+    labels=[
+        MidpointDiff().coinbase().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_price_diff_itbit = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().itbit().one_min().slippage(0.0),
+        BidStrengthUSD().itbit().one_min().slippage(0.1),
+        BidStrengthUSD().itbit().one_min().slippage(0.2),
+        BidStrengthUSD().itbit().one_min().slippage(0.3),
+        BidStrengthUSD().itbit().one_min().slippage(0.4),
+        BidStrengthUSD().itbit().one_min().slippage(0.5),
+        BidStrengthUSD().itbit().one_min().slippage(0.6),
+        BidStrengthUSD().itbit().one_min().slippage(0.7),
+        BidStrengthUSD().itbit().one_min().slippage(0.8),
+        BidStrengthUSD().itbit().one_min().slippage(0.9),
+        BidStrengthUSD().itbit().one_min().slippage(1.0),
+        AskStrengthUSD().itbit().one_min().slippage(0.0),
+        AskStrengthUSD().itbit().one_min().slippage(0.1),
+        AskStrengthUSD().itbit().one_min().slippage(0.2),
+        AskStrengthUSD().itbit().one_min().slippage(0.3),
+        AskStrengthUSD().itbit().one_min().slippage(0.4),
+        AskStrengthUSD().itbit().one_min().slippage(0.5),
+        AskStrengthUSD().itbit().one_min().slippage(0.6),
+        AskStrengthUSD().itbit().one_min().slippage(0.7),
+        AskStrengthUSD().itbit().one_min().slippage(0.8),
+        AskStrengthUSD().itbit().one_min().slippage(0.9),
+        AskStrengthUSD().itbit().one_min().slippage(1.0),
+    ],
+    labels=[
+        MidpointDiff().itbit().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_price_diff_gemini = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().gemini().one_min().slippage(0.0),
+        BidStrengthUSD().gemini().one_min().slippage(0.1),
+        BidStrengthUSD().gemini().one_min().slippage(0.2),
+        BidStrengthUSD().gemini().one_min().slippage(0.3),
+        BidStrengthUSD().gemini().one_min().slippage(0.4),
+        BidStrengthUSD().gemini().one_min().slippage(0.5),
+        BidStrengthUSD().gemini().one_min().slippage(0.6),
+        BidStrengthUSD().gemini().one_min().slippage(0.7),
+        BidStrengthUSD().gemini().one_min().slippage(0.8),
+        BidStrengthUSD().gemini().one_min().slippage(0.9),
+        BidStrengthUSD().gemini().one_min().slippage(1.0),
+        AskStrengthUSD().gemini().one_min().slippage(0.0),
+        AskStrengthUSD().gemini().one_min().slippage(0.1),
+        AskStrengthUSD().gemini().one_min().slippage(0.2),
+        AskStrengthUSD().gemini().one_min().slippage(0.3),
+        AskStrengthUSD().gemini().one_min().slippage(0.4),
+        AskStrengthUSD().gemini().one_min().slippage(0.5),
+        AskStrengthUSD().gemini().one_min().slippage(0.6),
+        AskStrengthUSD().gemini().one_min().slippage(0.7),
+        AskStrengthUSD().gemini().one_min().slippage(0.8),
+        AskStrengthUSD().gemini().one_min().slippage(0.9),
+        AskStrengthUSD().gemini().one_min().slippage(1.0),
+    ],
+    labels=[
+        MidpointDiff().gemini().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_price_diff_okcoin = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().okcoin().one_min().slippage(0.0),
+        BidStrengthUSD().okcoin().one_min().slippage(0.1),
+        BidStrengthUSD().okcoin().one_min().slippage(0.2),
+        BidStrengthUSD().okcoin().one_min().slippage(0.3),
+        BidStrengthUSD().okcoin().one_min().slippage(0.4),
+        BidStrengthUSD().okcoin().one_min().slippage(0.5),
+        BidStrengthUSD().okcoin().one_min().slippage(0.6),
+        BidStrengthUSD().okcoin().one_min().slippage(0.7),
+        BidStrengthUSD().okcoin().one_min().slippage(0.8),
+        BidStrengthUSD().okcoin().one_min().slippage(0.9),
+        BidStrengthUSD().okcoin().one_min().slippage(1.0),
+        AskStrengthUSD().okcoin().one_min().slippage(0.0),
+        AskStrengthUSD().okcoin().one_min().slippage(0.1),
+        AskStrengthUSD().okcoin().one_min().slippage(0.2),
+        AskStrengthUSD().okcoin().one_min().slippage(0.3),
+        AskStrengthUSD().okcoin().one_min().slippage(0.4),
+        AskStrengthUSD().okcoin().one_min().slippage(0.5),
+        AskStrengthUSD().okcoin().one_min().slippage(0.6),
+        AskStrengthUSD().okcoin().one_min().slippage(0.7),
+        AskStrengthUSD().okcoin().one_min().slippage(0.8),
+        AskStrengthUSD().okcoin().one_min().slippage(0.9),
+        AskStrengthUSD().okcoin().one_min().slippage(1.0),
+    ],
+    labels=[
+        MidpointDiff().okcoin().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_simple_returns_bitstamp = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().bitstamp().one_min().slippage(0.0),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.1),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.2),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.3),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.4),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.5),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.6),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.7),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.8),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.9),
+        BidStrengthUSD().bitstamp().one_min().slippage(1.0),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.0),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.1),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.2),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.3),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.4),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.5),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.6),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.7),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.8),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.9),
+        AskStrengthUSD().bitstamp().one_min().slippage(1.0),
+    ],
+    labels=[
+        SimpleReturns().bitstamp().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_simple_returns_bitfinex = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().bitfinex().one_min().slippage(0.0),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.1),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.2),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.3),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.4),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.5),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.6),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.7),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.8),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.9),
+        BidStrengthUSD().bitfinex().one_min().slippage(1.0),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.0),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.1),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.2),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.3),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.4),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.5),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.6),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.7),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.8),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.9),
+        AskStrengthUSD().bitfinex().one_min().slippage(1.0),
+    ],
+    labels=[
+        SimpleReturns().bitfinex().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_simple_returns_coinbase = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().coinbase().one_min().slippage(0.0),
+        BidStrengthUSD().coinbase().one_min().slippage(0.1),
+        BidStrengthUSD().coinbase().one_min().slippage(0.2),
+        BidStrengthUSD().coinbase().one_min().slippage(0.3),
+        BidStrengthUSD().coinbase().one_min().slippage(0.4),
+        BidStrengthUSD().coinbase().one_min().slippage(0.5),
+        BidStrengthUSD().coinbase().one_min().slippage(0.6),
+        BidStrengthUSD().coinbase().one_min().slippage(0.7),
+        BidStrengthUSD().coinbase().one_min().slippage(0.8),
+        BidStrengthUSD().coinbase().one_min().slippage(0.9),
+        BidStrengthUSD().coinbase().one_min().slippage(1.0),
+        AskStrengthUSD().coinbase().one_min().slippage(0.0),
+        AskStrengthUSD().coinbase().one_min().slippage(0.1),
+        AskStrengthUSD().coinbase().one_min().slippage(0.2),
+        AskStrengthUSD().coinbase().one_min().slippage(0.3),
+        AskStrengthUSD().coinbase().one_min().slippage(0.4),
+        AskStrengthUSD().coinbase().one_min().slippage(0.5),
+        AskStrengthUSD().coinbase().one_min().slippage(0.6),
+        AskStrengthUSD().coinbase().one_min().slippage(0.7),
+        AskStrengthUSD().coinbase().one_min().slippage(0.8),
+        AskStrengthUSD().coinbase().one_min().slippage(0.9),
+        AskStrengthUSD().coinbase().one_min().slippage(1.0),
+    ],
+    labels=[
+        SimpleReturns().coinbase().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_simple_returns_itbit = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().itbit().one_min().slippage(0.0),
+        BidStrengthUSD().itbit().one_min().slippage(0.1),
+        BidStrengthUSD().itbit().one_min().slippage(0.2),
+        BidStrengthUSD().itbit().one_min().slippage(0.3),
+        BidStrengthUSD().itbit().one_min().slippage(0.4),
+        BidStrengthUSD().itbit().one_min().slippage(0.5),
+        BidStrengthUSD().itbit().one_min().slippage(0.6),
+        BidStrengthUSD().itbit().one_min().slippage(0.7),
+        BidStrengthUSD().itbit().one_min().slippage(0.8),
+        BidStrengthUSD().itbit().one_min().slippage(0.9),
+        BidStrengthUSD().itbit().one_min().slippage(1.0),
+        AskStrengthUSD().itbit().one_min().slippage(0.0),
+        AskStrengthUSD().itbit().one_min().slippage(0.1),
+        AskStrengthUSD().itbit().one_min().slippage(0.2),
+        AskStrengthUSD().itbit().one_min().slippage(0.3),
+        AskStrengthUSD().itbit().one_min().slippage(0.4),
+        AskStrengthUSD().itbit().one_min().slippage(0.5),
+        AskStrengthUSD().itbit().one_min().slippage(0.6),
+        AskStrengthUSD().itbit().one_min().slippage(0.7),
+        AskStrengthUSD().itbit().one_min().slippage(0.8),
+        AskStrengthUSD().itbit().one_min().slippage(0.9),
+        AskStrengthUSD().itbit().one_min().slippage(1.0),
+    ],
+    labels=[
+        SimpleReturns().itbit().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_simple_returns_gemini = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().gemini().one_min().slippage(0.0),
+        BidStrengthUSD().gemini().one_min().slippage(0.1),
+        BidStrengthUSD().gemini().one_min().slippage(0.2),
+        BidStrengthUSD().gemini().one_min().slippage(0.3),
+        BidStrengthUSD().gemini().one_min().slippage(0.4),
+        BidStrengthUSD().gemini().one_min().slippage(0.5),
+        BidStrengthUSD().gemini().one_min().slippage(0.6),
+        BidStrengthUSD().gemini().one_min().slippage(0.7),
+        BidStrengthUSD().gemini().one_min().slippage(0.8),
+        BidStrengthUSD().gemini().one_min().slippage(0.9),
+        BidStrengthUSD().gemini().one_min().slippage(1.0),
+        AskStrengthUSD().gemini().one_min().slippage(0.0),
+        AskStrengthUSD().gemini().one_min().slippage(0.1),
+        AskStrengthUSD().gemini().one_min().slippage(0.2),
+        AskStrengthUSD().gemini().one_min().slippage(0.3),
+        AskStrengthUSD().gemini().one_min().slippage(0.4),
+        AskStrengthUSD().gemini().one_min().slippage(0.5),
+        AskStrengthUSD().gemini().one_min().slippage(0.6),
+        AskStrengthUSD().gemini().one_min().slippage(0.7),
+        AskStrengthUSD().gemini().one_min().slippage(0.8),
+        AskStrengthUSD().gemini().one_min().slippage(0.9),
+        AskStrengthUSD().gemini().one_min().slippage(1.0),
+    ],
+    labels=[
+        SimpleReturns().gemini().one_min().lookforward(1),
+    ],
+)
+
+ultra_strength_inner_1d_target_simple_returns_okcoin = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().okcoin().one_min().slippage(0.0),
+        BidStrengthUSD().okcoin().one_min().slippage(0.1),
+        BidStrengthUSD().okcoin().one_min().slippage(0.2),
+        BidStrengthUSD().okcoin().one_min().slippage(0.3),
+        BidStrengthUSD().okcoin().one_min().slippage(0.4),
+        BidStrengthUSD().okcoin().one_min().slippage(0.5),
+        BidStrengthUSD().okcoin().one_min().slippage(0.6),
+        BidStrengthUSD().okcoin().one_min().slippage(0.7),
+        BidStrengthUSD().okcoin().one_min().slippage(0.8),
+        BidStrengthUSD().okcoin().one_min().slippage(0.9),
+        BidStrengthUSD().okcoin().one_min().slippage(1.0),
+        AskStrengthUSD().okcoin().one_min().slippage(0.0),
+        AskStrengthUSD().okcoin().one_min().slippage(0.1),
+        AskStrengthUSD().okcoin().one_min().slippage(0.2),
+        AskStrengthUSD().okcoin().one_min().slippage(0.3),
+        AskStrengthUSD().okcoin().one_min().slippage(0.4),
+        AskStrengthUSD().okcoin().one_min().slippage(0.5),
+        AskStrengthUSD().okcoin().one_min().slippage(0.6),
+        AskStrengthUSD().okcoin().one_min().slippage(0.7),
+        AskStrengthUSD().okcoin().one_min().slippage(0.8),
+        AskStrengthUSD().okcoin().one_min().slippage(0.9),
+        AskStrengthUSD().okcoin().one_min().slippage(1.0),
+    ],
+    labels=[
+        SimpleReturns().okcoin().one_min().lookforward(1),
+    ],
+)
+
+inner_1d_and_arb_bitstamp = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().bitstamp().one_min().slippage(0.0),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.1),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.2),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.3),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.4),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.5),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.6),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.7),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.8),
+        BidStrengthUSD().bitstamp().one_min().slippage(0.9),
+        BidStrengthUSD().bitstamp().one_min().slippage(1.0),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.0),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.1),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.2),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.3),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.4),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.5),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.6),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.7),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.8),
+        AskStrengthUSD().bitstamp().one_min().slippage(0.9),
+        AskStrengthUSD().bitstamp().one_min().slippage(1.0),
+        SignedArbRevenue().bitstamp().bitfinex().one_min(),
+        SignedArbRevenue().bitstamp().coinbase().one_min(),
+        SignedArbRevenue().bitstamp().itbit().one_min(),
+    ],
+    labels=[
+        SimpleReturns().bitstamp().one_min().lookforward(1),
+    ],
+)
+
+inner_1d_and_arb_bitfinex = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().bitfinex().one_min().slippage(0.0),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.1),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.2),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.3),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.4),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.5),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.6),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.7),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.8),
+        BidStrengthUSD().bitfinex().one_min().slippage(0.9),
+        BidStrengthUSD().bitfinex().one_min().slippage(1.0),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.0),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.1),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.2),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.3),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.4),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.5),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.6),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.7),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.8),
+        AskStrengthUSD().bitfinex().one_min().slippage(0.9),
+        AskStrengthUSD().bitfinex().one_min().slippage(1.0),
+        SignedArbRevenue().bitfinex().bitstamp().one_min(),
+        SignedArbRevenue().bitfinex().coinbase().one_min(),
+        SignedArbRevenue().bitfinex().itbit().one_min(),
+    ],
+    labels=[
+        SimpleReturns().bitfinex().one_min().lookforward(1),
+    ],
+)
+
+inner_1d_and_arb_coinbase = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().coinbase().one_min().slippage(0.0),
+        BidStrengthUSD().coinbase().one_min().slippage(0.1),
+        BidStrengthUSD().coinbase().one_min().slippage(0.2),
+        BidStrengthUSD().coinbase().one_min().slippage(0.3),
+        BidStrengthUSD().coinbase().one_min().slippage(0.4),
+        BidStrengthUSD().coinbase().one_min().slippage(0.5),
+        BidStrengthUSD().coinbase().one_min().slippage(0.6),
+        BidStrengthUSD().coinbase().one_min().slippage(0.7),
+        BidStrengthUSD().coinbase().one_min().slippage(0.8),
+        BidStrengthUSD().coinbase().one_min().slippage(0.9),
+        BidStrengthUSD().coinbase().one_min().slippage(1.0),
+        AskStrengthUSD().coinbase().one_min().slippage(0.0),
+        AskStrengthUSD().coinbase().one_min().slippage(0.1),
+        AskStrengthUSD().coinbase().one_min().slippage(0.2),
+        AskStrengthUSD().coinbase().one_min().slippage(0.3),
+        AskStrengthUSD().coinbase().one_min().slippage(0.4),
+        AskStrengthUSD().coinbase().one_min().slippage(0.5),
+        AskStrengthUSD().coinbase().one_min().slippage(0.6),
+        AskStrengthUSD().coinbase().one_min().slippage(0.7),
+        AskStrengthUSD().coinbase().one_min().slippage(0.8),
+        AskStrengthUSD().coinbase().one_min().slippage(0.9),
+        AskStrengthUSD().coinbase().one_min().slippage(1.0),
+        SignedArbRevenue().coinbase().bitstamp().one_min(),
+        SignedArbRevenue().coinbase().bitfinex().one_min(),
+        SignedArbRevenue().coinbase().itbit().one_min(),
+    ],
+    labels=[
+        SimpleReturns().coinbase().one_min().lookforward(1),
+    ],
+)
+
+inner_1d_and_arb_itbit = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().itbit().one_min().slippage(0.0),
+        BidStrengthUSD().itbit().one_min().slippage(0.1),
+        BidStrengthUSD().itbit().one_min().slippage(0.2),
+        BidStrengthUSD().itbit().one_min().slippage(0.3),
+        BidStrengthUSD().itbit().one_min().slippage(0.4),
+        BidStrengthUSD().itbit().one_min().slippage(0.5),
+        BidStrengthUSD().itbit().one_min().slippage(0.6),
+        BidStrengthUSD().itbit().one_min().slippage(0.7),
+        BidStrengthUSD().itbit().one_min().slippage(0.8),
+        BidStrengthUSD().itbit().one_min().slippage(0.9),
+        BidStrengthUSD().itbit().one_min().slippage(1.0),
+        AskStrengthUSD().itbit().one_min().slippage(0.0),
+        AskStrengthUSD().itbit().one_min().slippage(0.1),
+        AskStrengthUSD().itbit().one_min().slippage(0.2),
+        AskStrengthUSD().itbit().one_min().slippage(0.3),
+        AskStrengthUSD().itbit().one_min().slippage(0.4),
+        AskStrengthUSD().itbit().one_min().slippage(0.5),
+        AskStrengthUSD().itbit().one_min().slippage(0.6),
+        AskStrengthUSD().itbit().one_min().slippage(0.7),
+        AskStrengthUSD().itbit().one_min().slippage(0.8),
+        AskStrengthUSD().itbit().one_min().slippage(0.9),
+        AskStrengthUSD().itbit().one_min().slippage(1.0),
+        SignedArbRevenue().itbit().bitstamp().one_min(),
+        SignedArbRevenue().itbit().bitfinex().one_min(),
+        SignedArbRevenue().itbit().coinbase().one_min(),
+    ],
+    labels=[
+        SimpleReturns().itbit().one_min().lookforward(1),
+    ],
+)
+
+inner_1d_and_arb_okcoin = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().okcoin().one_min().slippage(0.0),
+        BidStrengthUSD().okcoin().one_min().slippage(0.1),
+        BidStrengthUSD().okcoin().one_min().slippage(0.2),
+        BidStrengthUSD().okcoin().one_min().slippage(0.3),
+        BidStrengthUSD().okcoin().one_min().slippage(0.4),
+        BidStrengthUSD().okcoin().one_min().slippage(0.5),
+        BidStrengthUSD().okcoin().one_min().slippage(0.6),
+        BidStrengthUSD().okcoin().one_min().slippage(0.7),
+        BidStrengthUSD().okcoin().one_min().slippage(0.8),
+        BidStrengthUSD().okcoin().one_min().slippage(0.9),
+        BidStrengthUSD().okcoin().one_min().slippage(1.0),
+        AskStrengthUSD().okcoin().one_min().slippage(0.0),
+        AskStrengthUSD().okcoin().one_min().slippage(0.1),
+        AskStrengthUSD().okcoin().one_min().slippage(0.2),
+        AskStrengthUSD().okcoin().one_min().slippage(0.3),
+        AskStrengthUSD().okcoin().one_min().slippage(0.4),
+        AskStrengthUSD().okcoin().one_min().slippage(0.5),
+        AskStrengthUSD().okcoin().one_min().slippage(0.6),
+        AskStrengthUSD().okcoin().one_min().slippage(0.7),
+        AskStrengthUSD().okcoin().one_min().slippage(0.8),
+        AskStrengthUSD().okcoin().one_min().slippage(0.9),
+        AskStrengthUSD().okcoin().one_min().slippage(1.0),
+        SignedArbRevenue().okcoin().bitstamp().one_min(),
+        SignedArbRevenue().okcoin().bitfinex().one_min(),
+        SignedArbRevenue().okcoin().coinbase().one_min(),
+        SignedArbRevenue().okcoin().itbit().one_min(),
+        SignedArbRevenue().okcoin().gemini().one_min(),
+    ],
+    labels=[
+        SimpleReturns().okcoin().one_min().lookforward(1),
+    ],
+)
+
+inner_1d_and_arb_gemini = ml.data.feature_label_set.FeatureLabelSet(
+    features=[
+        BidStrengthUSD().gemini().one_min().slippage(0.0),
+        BidStrengthUSD().gemini().one_min().slippage(0.1),
+        BidStrengthUSD().gemini().one_min().slippage(0.2),
+        BidStrengthUSD().gemini().one_min().slippage(0.3),
+        BidStrengthUSD().gemini().one_min().slippage(0.4),
+        BidStrengthUSD().gemini().one_min().slippage(0.5),
+        BidStrengthUSD().gemini().one_min().slippage(0.6),
+        BidStrengthUSD().gemini().one_min().slippage(0.7),
+        BidStrengthUSD().gemini().one_min().slippage(0.8),
+        BidStrengthUSD().gemini().one_min().slippage(0.9),
+        BidStrengthUSD().gemini().one_min().slippage(1.0),
+        AskStrengthUSD().gemini().one_min().slippage(0.0),
+        AskStrengthUSD().gemini().one_min().slippage(0.1),
+        AskStrengthUSD().gemini().one_min().slippage(0.2),
+        AskStrengthUSD().gemini().one_min().slippage(0.3),
+        AskStrengthUSD().gemini().one_min().slippage(0.4),
+        AskStrengthUSD().gemini().one_min().slippage(0.5),
+        AskStrengthUSD().gemini().one_min().slippage(0.6),
+        AskStrengthUSD().gemini().one_min().slippage(0.7),
+        AskStrengthUSD().gemini().one_min().slippage(0.8),
+        AskStrengthUSD().gemini().one_min().slippage(0.9),
+        AskStrengthUSD().gemini().one_min().slippage(1.0),
+        SignedArbRevenue().gemini().bitstamp().one_min(),
+        SignedArbRevenue().gemini().bitfinex().one_min(),
+        SignedArbRevenue().gemini().coinbase().one_min(),
+        SignedArbRevenue().gemini().itbit().one_min(),
+        SignedArbRevenue().gemini().okcoin().one_min(),
+    ],
+    labels=[
+        SimpleReturns().gemini().one_min().lookforward(1),
+    ],
+)

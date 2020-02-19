@@ -1,0 +1,16 @@
+Other ideas:
+- Single variable logistic regression past-1h future-1hr return sign
+- Multiple variable linear regression with past-[x,y,z,...]-hr future-1hr
+- Multiple variable logistic regression with past-[x,y,z,...]-hr future-1hr
+- Play around with different cost functions
+- Play around with different learning rates
+- Add in a test set
+- Get 'accuracy' in there
+- Try initializing weights with zeroes instead of randomly
+- Try outputting the change of line fits for each epoch
+
+Questions:
+- How do you visualize learning rates?
+- What are epochs really?
+- Why is this so slow even with less than 1000 datapoints?
+
