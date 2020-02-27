@@ -91,11 +91,12 @@ The workflow itself is roughly as follows:
     Of course, baseball cards themselves are still summaries. To gain confidence in a model we recommend using many of the visualizations in the [Visualize](ml/visualize.py) library, as well as examining the models' predictions series' itself directly.
     
 9. Once you've digested results of this run, return to step 1. and iterate on your model hyperparameters and featureset until you've found a model that performs well enough to move into production.
-10. Run production models with *model_runner*. The runner generates the values of the relevant features for the current moment, feeds it into your production model, and places the output in redis. To trade against these predictions using a Gryphon strategy, all you have to do is read the predictions out of redis and write your trading behaviour accordingly.
-  ```shell
-    ./gryphon-atlas run-model [model_name]
-  ```
-  
+10. Run production models with *model_runner*.
+      ```shell
+          ./gryphon-atlas run-model [model_name]
+      ```
+      The runner generates the values of the relevant features for the current moment, feeds it into your production model, and places the output in redis. To trade against these predictions using a Gryphon strategy, all you have to do is read the predictions out of redis and write your trading behaviour accordingly.
+      
 ## Limitations
 
 - Atlas was built on tensorflow RC 0.12. For future usage it will need to be adapted to current tensorflow releases.
