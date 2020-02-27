@@ -78,14 +78,14 @@ The workflow itself is roughly as follows:
 
     This example is from a training run where the goal was to create a trinary classifier for price movement into "strong up, about the same, strong down" categories. The viridis colour scheme tells us that purple is low, green/yellow is very high, and teals/blues are mostly about the average. We can see immediately that the fourth and fifth models have some very extreme results, so they are most likely degenerate cases not worth our time. The sixth model is questionable. Of the first three however, the first and third at least seem to have a little signal, in particular with predicting the "about the same" case. Those might be worth a closer look.
 
-8. Use individual model baseball cards and other visualizations to evaluate what worked and what didn't. 
-    - Good results on the summary page do not necessarily mean the model is good. It may, for example, have simply performed extremely well in one period of the training data and fallen off completely after.
-    - For this we can dig into individual model results using Baseball Cards. Baseball cards are a quick readout of several visualizations that help us interpret the results of a model. Here's an example.
-
+8. Use individual model baseball cards and other visualizations to evaluate what worked and what didn't. Good results on the summary page do not necessarily mean the model is good. It may, for example, have simply performed extremely well in one period of the training data and fallen off completely after. For this we can dig into individual model results using Baseball Cards. Baseball cards are a quick readout of several visualizations that help us interpret the results of a model. Here's an example.
       <p align='center'><img src='https://github.com/garethdmm/gryphon-atlas/raw/master/img/baseball_card.png' height=400/></p>
 
-- In this baseball card, from left to right and top to bottom, the first pane is accuracy over time. We can see it's accuracy does appear to come in waves.
-9. Run production models with *model_runner*, and write Gryphon strategies that can read their outputs through redis.
+    In this baseball card, from left to right and top to bottom, the first pane is accuracy over time. We can see it's accuracy does appear to come in waves. The next is Likelihood ratios for all three classes at different confidence values (z-values in some traditions). The third is a histogram of accuracy values in different time periods. The fourth is the ROC curves for all three classes. 
+    Of course, baseball cards themselves are still summaries. To gain confidence in a model we recommend using many of the visualizations in the [Visualize](ml/visualize.py) library, as well as examining the models' predictions series' itself directly.
+    
+9. Once you've digested results of this run, return to step 1. and iterate on your model hyperparameters and featureset until you've found a model that performs well enough to move into production.
+10. Run production models with *model_runner*. The runner places the model's predictions in redis. To trade against these predictions using a Gryphon strategy, all you have to do is read the predictions out of redis and write your trading behaviour accordingly.
   ```shell
     ./gryphon-atlas run-model [model_name]
   ```
