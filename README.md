@@ -57,18 +57,16 @@ The workflow itself is roughly as follows:
 
 2. Create a [WorkUnit](ml/infra/work_unit.py). WorkUnits group a single featureset with a set of models and hyperparameters we think might perform well when trained on this featureset. For example, we might use the above `example_set` and want to try training single-layer DNNs with each of 10, 100, and 1000 neurons. A related class to WorkUnit is a [ModelSpec](ml/infra/model_spec.py), which just describes how to instantiate a model with a particular set of hyperparameters.
 3. Combine many WorkUnits into a single [WorkSpec](ml/infra/work_spec.py). WorkSpecs are a grouping of WorkUnits that we want to run all at the same time. This class also tells atlas how to split the work between many GPUs. You can see a full example of a WorkSpec [here](ml/infra/specs/june_1_2017.py)
-4. Use [General Trainer](ml/infra/general_trainer.py) to run the work spec on remote machines.
-    - Presently, each pipeline needs to be started independently. For simplicity, a tool like screen can be used to achieve this parallelism. This is done with this command:
+4. Use [General Trainer](ml/infra/general_trainer.py) to run the work spec on remote machines. This is done with this command:
       ```shell
         python general_trainer.py [work_spec_name] [pipline number] [--execute] 
       ```
+    Presently, each pipeline needs to be started independently. For simplicity, a tool like screen can be used to achieve this parallelism.
 5. Use [Tensorboard](https://www.tensorflow.org/tensorboard) to monitor training progress during the run.
-6. On completion, use the [Harvester](ml/infra/harvest.py) to download the training run results
-    - This can be done with the command
+6. On completion, use the [Harvester](ml/infra/harvest.py) to download the training run results. Run results are kept in a format called a `ResultsObject` which is pickled and written to disk on the training machine at the end of a run. The Harvester simply moves this file to your local machine, and can be run as follows:
       ```shell
         python harvest.py [work_spec_name] [host] [--execute]
       ```
-    - The result of this is to retreive a blob of python objects onto your machine.
 7. Use batch overview visualizations to find the best models from your training run. You can load the results object from the analysis console as follows:
     ```python
         # Code to get the analysis object.
