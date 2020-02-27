@@ -25,12 +25,11 @@ Before using Atlas, you should be running the Gryphon Data Service and building 
 
 The workflow itself is roughly as follows:
 
-1. Create a featureset you wish to train models against.
-    - The [feature library](ml/data/feature.py) has dozens of built-in features which can be generated from the GDS database. Each of these features can be built/referenced in code using a human-readable syntax. For example, this is how you would create a feature for the one-minute future log-returns on the bitstamp btc_usd pair.
+1. Create a featureset you wish to train models against. The [feature library](ml/data/feature.py) has dozens of built-in features which can be generated from the GDS database. Each of these features can be built/referenced in code using a human-readable syntax. For example, this is how you would create a feature for the one-minute future log-returns on the bitstamp btc_usd pair.
       ```python
         LogReturns().bitstamp_btc_usd().one_min().lookforward(1)
       ```
-    - Features are grouped together with a prediction target into a [FeatureLabelSet](ml/data/feature_label_set.py). The following example uses the top bid/ask volume on bitstamp, the past one-minute log return, and the midpoint spread between bitstamp and itbit, to predict the next one-minute log return of bitstamp.
+    Features are grouped together with a prediction target into a [FeatureLabelSet](ml/data/feature_label_set.py). The following example uses the top bid/ask volume on bitstamp, the past one-minute log return, and the midpoint spread between bitstamp and itbit, to predict the next one-minute log return of bitstamp.
       ```python
         example_set = ml.data.feature_label_set.FeatureLabelSet(
             features=[
@@ -48,7 +47,7 @@ The workflow itself is roughly as follows:
         )
       ```
 
-    - Before starting a run, you can build and inspect parts of this featureset in the [Atlas Console](ml/console.py). Start the console from the root directory with `make console`, and you can plot a pre-defined featureset like this:
+    Before starting a training run, you can build and inspect parts of this featureset in the [Atlas Console](ml/console.py). Start the console from the root directory with `make console`, and you can plot a pre-defined featureset like this:
       ```python
         simple_prices.plot_data(datetime(2019, 1, 1), datetime(2019, 3, 1), subplots=True)
       ```
