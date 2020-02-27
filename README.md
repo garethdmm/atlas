@@ -49,7 +49,7 @@ The best way to describe the functionality of Atlas is to go through the workflo
 
     Before starting a training run, you can build and inspect parts of this featureset in the [Atlas Console](ml/console.py). Start the console from the root directory with `make console`, and you can plot a pre-defined featureset like this:
       ```python
-        simple_prices.plot_data(datetime(2019, 1, 1), datetime(2019, 3, 1), subplots=True)
+        example_set.plot_data(datetime(2019, 1, 1), datetime(2019, 3, 1), subplots=True)
       ```
       The output should look something like this:
       <p align='center'><img src='https://github.com/garethdmm/gryphon-atlas/raw/master/img/featureset_visual.png'/></p>
