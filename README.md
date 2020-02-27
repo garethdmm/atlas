@@ -48,7 +48,7 @@ The workflow itself is roughly as follows:
         )
       ```
 
-    - Before starting a run, you can build this featureset in the atlas console and examine to data visually
+    - Before starting a run, you can build and inspect parts of this featureset in the [Atlas Console](ml/console.py). Start the console from the root directory with `make console`, and you can plot a pre-defined featureset like this:
       ```python
         simple_prices.plot_data(datetime(2019, 1, 1), datetime(2019, 3, 1), subplots=True)
       ```
@@ -67,17 +67,16 @@ The workflow itself is roughly as follows:
       ```shell
         python harvest.py [work_spec_name] [host] [--execute]
       ```
-7. Use batch overview visualizations to find the best models from your training run. You can load the results object from the analysis console as follows:
+7. Use batch overview visualizations to find the best models from your training run. To do this, we import the workspec in the atlas console, and pass the results object into the functions in the [visualizations](ml/visualize.py) library (which is already pre-imported in the console). Here's an example.
     ```python
-        # Code to get the analysis object.
+        from ml.infra.work_specs import june_1_2017 as spec
+        results = spec.get_all_results_objs()
+        visualize.plot_multi_basic_results_table(results)
     ```
-    - With a results object in hand, you can see a total overview of the training run with this command
-    ```python
-        # Code to show the stuff.
-    ```
+    This will give you a visual output something like this:
       <p align='center'><img src='https://github.com/garethdmm/gryphon-atlas/raw/master/img/batch_run.png'/></p>
 
-- This example is from a training run where the goal was to create a trinary classifier for price movement into "strong up, about the same, strong down" categories. The viridis colour scheme tells us that purple is low, green/yellow is very high, and teals/blues are mostly about the average. We can see immediately that the fourth and fifth models have some very extreme results, so they are most likely degenerate cases not worth our time. The sixth model is questionable. Of the first three however, the first and third at least seem to have a little signal, in particular with predicting the "about the same" case. Those might be worth a closer look.
+    This example is from a training run where the goal was to create a trinary classifier for price movement into "strong up, about the same, strong down" categories. The viridis colour scheme tells us that purple is low, green/yellow is very high, and teals/blues are mostly about the average. We can see immediately that the fourth and fifth models have some very extreme results, so they are most likely degenerate cases not worth our time. The sixth model is questionable. Of the first three however, the first and third at least seem to have a little signal, in particular with predicting the "about the same" case. Those might be worth a closer look.
 
 8. Use individual model baseball cards and other visualizations to evaluate what worked and what didn't. 
     - Good results on the summary page do not necessarily mean the model is good. It may, for example, have simply performed extremely well in one period of the training data and fallen off completely after.
