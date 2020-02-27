@@ -12,18 +12,18 @@
 
 ## Overview
 
-Atlas is a model development workflow built on Tensorflow and TFLearn. It's purpose is to allow individual model developers to iterate quickly. Atlas consists of roughly four modules:
+Atlas is a model development workflow built on Tensorflow and TFLearn intended to allow small teams or individual model developers to move quickly through the hypothesis → train → evaluate → iterate loop while looking for effective models. It's focus is high-frequency financial time series prediction. It is broken into roughly four modules:
 
-- `infra` - Classes for defining training runs of thousands of parallel models, initializing the run on remote machines, and gathering results.
-- `data` - Classes and tools for working with large timeseries datasets. Includes a feature library for defining featuresets easily, data cleaning and conversion functions, and tools for handling unbalanced datasets for classification.
+- `data` - Classes and tools for working with large financial time-series datasets. Feature library includes dozens of relevant features for time-series forecasting. Features and featuresets are defined with human-readable language. Data cleaning and conversion functions, and tools for handling unbalanced datasets for classification.
 - `models` - The atlas model zoo, including implementations of the most common machine learning model types.
-- `stats` - A library that includes implementations of missing evaluation stats in the scikit/tensorflow libraries, as well as visual summaries of trained model performance and comparisons of arbitrary numbers of models at once.
+- `infra` - Classes for defining training runs of thousands of parallel models, orchestrating traing on remote machines, and retreiving results for analysis.
+- `stats` - A library that includes implementations of missing evaluation stats in the scikit/tensorflow libraries, visual summaries of trained model performance and comparisons of arbitrary numbers of models at once.
+
+Atlas is built for use with the Gryphon Trading Framework and use of the associated Gryphon Data Service (GDS) to build a market data database is assumed.
 
 ## Workflow
 
-Before using Atlas, you should be running the Gryphon Data Service and building a database of market data on which to train models.
-
-The workflow itself is roughly as follows:
+The best way to describe the functionality of Atlas is to go through the workflow in light detail. Let's say you want to find good forecasting models for future 5-minute realized volatility. Using the Atlas workflow might look something like this:
 
 1. Create a featureset you wish to train models against. The [feature library](ml/data/feature.py) has dozens of built-in features which can be generated from the GDS database. Each of these features can be built/referenced in code using a human-readable syntax. For example, this is how you would create a feature for the one-minute future log-returns on the bitstamp btc_usd pair.
       ```python
@@ -97,11 +97,13 @@ The workflow itself is roughly as follows:
       ```
       The runner generates the values of the relevant features for the current moment, feeds it into your production model, and places the output in redis. To trade against these predictions using a Gryphon strategy, all you have to do is read the predictions out of redis and write your trading behaviour accordingly.
       
-## Limitations
 
+## Status and Limitations
+
+Atlas does not currently have a stable release and it's current value is primarily as a reference or as an example for how to build similar pipelines. Re-stabilizing the project would be straightforward and contributions are welcome in this area. Feel free to reach out to the owner through Github or the Gryphon Framework Slack channel for advice on how to go about this. To start with, there are two key updates that need to be made:
 - Atlas was built on tensorflow RC 0.12. For future usage it will need to be adapted to current tensorflow releases.
 - Atlas was built on TFLearn, which has had substantial API changes. For future usage it would be good to move the model library to keras or some other library that is in consistent use.
-- This release of Atlas does not include RNN models, which are a standard in time-series prediction.
+- The data pipeline between GDS and the Atlas feature database is currently unimplemented.
 
 ## Enterprise Support
 
