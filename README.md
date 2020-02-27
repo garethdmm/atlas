@@ -23,7 +23,7 @@ Atlas is built for use with the Gryphon Trading Framework and use of the associa
 
 ## Workflow
 
-The best way to describe the functionality of Atlas is to go through the workflow in light detail. Let's say you want to find good forecasting models for future 5-minute realized volatility. Using the Atlas workflow might look something like this:
+The best way to describe the functionality of Atlas is to go through the workflow in light detail. Let's say you want to find good forecasting models for next one-minute log return on a particular exchange. Using the Atlas workflow might look something like this:
 
 1. Create a featureset you wish to train models against. The [feature library](ml/data/feature.py) has dozens of built-in features which can be generated from the GDS database. Each of these features can be built/referenced in code using a human-readable syntax. For example, this is how you would create a feature for the one-minute future log-returns on the bitstamp btc_usd pair.
       ```python
